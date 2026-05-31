@@ -1,0 +1,281 @@
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('./assets/fonts/NeueMontreal-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('./assets/fonts/NeueMontreal-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('./assets/fonts/NeueMontreal-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Neue Montreal', sans-serif;
+  --font-heading: 'Neue Montreal', sans-serif;
+  --font-dennis: 'Neue Montreal', sans-serif;
+
+  --color-bg-dark: #050505;
+  --color-card-dark: #111111;
+  --color-purple-accent: #a855f7;
+  --color-blue-accent: #06b6d4;
+  --color-pink-accent: #ec4899;
+}
+
+/* Custom Reset and Global Styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: #050505;
+  color: #f3f4f6;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(17, 17, 17, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel-hover:hover {
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.1);
+  background: rgba(17, 17, 17, 0.8);
+}
+
+/* Ambient glow blobs */
+.glow-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Text glow */
+.text-glow-purple {
+  text-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+}
+.text-glow-blue {
+  text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+}
+
+/* Timeline components */
+.timeline-dot {
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.8), 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+
+/* Scrollbar utility classes */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Animated Grid Background */
+@keyframes gridPan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 50px 50px;
+  }
+}
+
+.bg-grid-pattern {
+  background-size: 50px 50px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  animation: gridPan 25s linear infinite;
+}
+
+/* Global Premium Section Headings (Solid Centered white-to-purple Gradients) */
+.section-heading {
+  font-size: 48px;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 0px;
+  margin-bottom: 28px;
+  background: linear-gradient(180deg, #ffffff 0%, #a855f7 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-family: var(--font-sans), sans-serif;
+  letter-spacing: -0.01em;
+  width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .section-heading {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .section-heading {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+}
+
+/* Futuristic Cyberpunk HUD Keyframes & Utilities */
+@keyframes laserSweep {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes cyberPulse {
+  0%, 100% { opacity: 0.25; transform: scale(0.95); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+@keyframes matrixGlow {
+  0%, 100% { filter: drop-shadow(0 0 2px #a855f7) opacity(0.85); }
+  50% { filter: drop-shadow(0 0 8px #a855f7) drop-shadow(0 0 12px #22d3ee) opacity(1); }
+}
+
+@keyframes hudSpinCw {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes hudSpinCcw {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+.animate-laser-sweep {
+  animation: laserSweep 4s linear infinite;
+}
+
+.animate-cyber-pulse {
+  animation: cyberPulse 2s ease-in-out infinite;
+}
+
+.animate-matrix-glow {
+  animation: matrixGlow 2.5s ease-in-out infinite;
+}
+
+.animate-hud-spin-cw {
+  animation: hudSpinCw 20s linear infinite;
+}
+
+.animate-hud-spin-ccw {
+  animation: hudSpinCcw 28s linear infinite;
+}
+
+/* Custom Cyber outline text for oversized branding */
+.text-outline-cyber {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.04);
+  text-shadow: none;
+  transition: -webkit-text-stroke 0.5s ease, opacity 0.5s ease;
+}
+
+.text-outline-cyber:hover {
+  -webkit-text-stroke: 1px rgba(168, 85, 247, 0.12);
+}
+
+/* Futuristic border-light effect */
+.cyber-border-glow {
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.1), inset 0 0 15px rgba(168, 85, 247, 0.05);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.cyber-border-glow:focus-within {
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.2), inset 0 0 15px rgba(6, 182, 212, 0.05);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+}
+
+/* Hide Spline Logo Watermark Globally */
+a[href*="spline.design"],
+.spline-wrapper a,
+#contact a[href*="spline.design"],
+#contact canvas + a {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Bulletproof Spline Watermark Clipping Transform */
+.spline-wrapper {
+  position: relative;
+  overflow: hidden !important;
+}
+
+.spline-wrapper canvas,
+.spline-wrapper spline-viewer,
+.spline-wrapper iframe,
+.spline-wrapper div[style*="position: relative"] {
+  width: 116% !important;
+  height: 116% !important;
+  transform: scale(1.18) translate(4.5%, 4.5%) !important;
+  transform-origin: center center !important;
+}
+
+/* GPU-Accelerated Marquee Animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-css {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+  will-change: transform;
+}
+
+
+
+
+
+
