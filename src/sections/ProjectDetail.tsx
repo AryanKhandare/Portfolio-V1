@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Shield, Cpu, RefreshCw, Layers } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
@@ -11,6 +11,7 @@ interface ProjectDetailProps {
 
 export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   
   // Parallax Tilt values for the Laptop Mockup
   const x = useMotionValue(0);
@@ -113,72 +114,134 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
           </motion.div>
         </section>
 
-        {/* ================= LAPTOP MOCKUP SHOWCASE ================= */}
-        <section className="w-full flex justify-center items-center py-8">
-          <div
-            className="w-full max-w-5xl perspective-[1200px]"
-            onMouseMove={handleLaptopMouseMove}
-            onMouseLeave={handleLaptopMouseLeave}
-          >
-            <motion.div
-              style={{
-                rotateX,
-                rotateY,
-                transformStyle: 'preserve-3d',
-              }}
-              className="relative w-full flex flex-col items-center select-none"
+        {/* ================= PROJECT SHOWCASE ================= */}
+        {project.isMobileOnly && project.mobileImages ? (
+          <section className="w-full flex flex-col items-center gap-6 py-8">
+            <div className="w-full max-w-5xl relative group">
+              {/* Main Image Slider with Framer Motion */}
+              <div className="w-full aspect-[1366/768] relative flex justify-center items-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.01] shadow-[0_0_80px_rgba(168,85,247,0.03)] backdrop-blur-3xl px-4 py-8">
+                {/* Grid layout for subtle background tech accent */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808007_1px,transparent_1px),linear-gradient(to_bottom,#80808007_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] pointer-events-none" />
+
+                {/* Left navigation arrow */}
+                <button
+                  onClick={() => setActiveImageIndex((prev) => (prev === 0 ? project.mobileImages!.length - 1 : prev - 1))}
+                  className="absolute left-6 z-30 p-3 rounded-full border border-white/10 bg-black/60 hover:bg-black/80 hover:border-white/30 text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur-md"
+                  aria-label="Previous screenshot"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+
+                {/* Right navigation arrow */}
+                <button
+                  onClick={() => setActiveImageIndex((prev) => (prev === project.mobileImages!.length - 1 ? 0 : prev + 1))}
+                  className="absolute right-6 z-30 p-3 rounded-full border border-white/10 bg-black/60 hover:bg-black/80 hover:border-white/30 text-white/70 hover:text-white transition-all cursor-pointer backdrop-blur-md"
+                  aria-label="Next screenshot"
+                >
+                  <ArrowLeft className="w-5 h-5 rotate-180" />
+                </button>
+
+                {/* Active Image */}
+                <motion.div
+                  key={activeImageIndex}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="w-full h-full flex items-center justify-center relative z-10"
+                >
+                  <img
+                    src={project.mobileImages[activeImageIndex]}
+                    alt={`${project.title} Screenshot ${activeImageIndex + 1}`}
+                    className="max-w-[90%] max-h-full object-contain drop-shadow-[0_20px_50px_rgba(168,85,247,0.15)] pointer-events-none select-none"
+                  />
+                </motion.div>
+              </div>
+
+              {/* Slider Dots */}
+              <div className="flex justify-center gap-3 mt-4">
+                {project.mobileImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImageIndex(idx)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
+                      activeImageIndex === idx
+                        ? 'bg-purple-accent w-8 shadow-[0_0_10px_rgba(168,85,247,0.5)]'
+                        : 'bg-white/20 hover:bg-white/40'
+                    }`}
+                    aria-label={`Go to screenshot ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : (
+          <section className="w-full flex justify-center items-center py-8">
+            <div
+              className="w-full max-w-5xl perspective-[1200px]"
+              onMouseMove={handleLaptopMouseMove}
+              onMouseLeave={handleLaptopMouseLeave}
             >
-              {/* Laptop Screen Bezel */}
-              <div 
-                className="relative w-[92%] aspect-[16/10] bg-[#0c0c0c] rounded-t-[2.2vw] p-[0.8%] border-t border-x border-white/20 shadow-[0_-15px_40px_-10px_rgba(255,255,255,0.05)] overflow-hidden"
+              <motion.div
                 style={{
-                  boxShadow: '0 40px 100px -30px rgba(0,0,0,0.9), 0 0 80px rgba(168,85,247,0.1)'
+                  rotateX,
+                  rotateY,
+                  transformStyle: 'preserve-3d',
                 }}
+                className="relative w-full flex flex-col items-center select-none"
               >
-                {/* Webcam Node & Ambient Sensor */}
-                <div className="absolute top-[0.6%] left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-40">
-                  <div className="w-[4px] h-[4px] rounded-full bg-[#111]" />
-                  <div className="w-[5px] h-[5px] rounded-full bg-[#041108] border border-blue-900/30 flex items-center justify-center">
-                    <div className="w-[2px] h-[2px] rounded-full bg-blue-400/40" />
+                {/* Laptop Screen Bezel */}
+                <div 
+                  className="relative w-[92%] aspect-[16/10] bg-[#0c0c0c] rounded-t-[2.2vw] p-[0.8%] border-t border-x border-white/20 shadow-[0_-15px_40px_-10px_rgba(255,255,255,0.05)] overflow-hidden"
+                  style={{
+                    boxShadow: '0 40px 100px -30px rgba(0,0,0,0.9), 0 0 80px rgba(168,85,247,0.1)'
+                  }}
+                >
+                  {/* Webcam Node & Ambient Sensor */}
+                  <div className="absolute top-[0.6%] left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-40">
+                    <div className="w-[4px] h-[4px] rounded-full bg-[#111]" />
+                    <div className="w-[5px] h-[5px] rounded-full bg-[#041108] border border-blue-900/30 flex items-center justify-center">
+                      <div className="w-[2px] h-[2px] rounded-full bg-blue-400/40" />
+                    </div>
+                  </div>
+
+                  {/* Inner Screen Content */}
+                  <div className="w-full h-full relative bg-black rounded-[1.2vw] overflow-hidden border border-black/80">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover select-none pointer-events-none"
+                    />
+                    {/* Dynamic Glass Glare Sweep */}
+                    <motion.div
+                      style={{ left: glareX }}
+                      className="absolute inset-y-0 w-[40%] bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-25deg] pointer-events-none z-30"
+                    />
+                    {/* Subtle Screen Ambient Shadow */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/15 pointer-events-none z-20" />
                   </div>
                 </div>
 
-                {/* Inner Screen Content */}
-                <div className="w-full h-full relative bg-black rounded-[1.2vw] overflow-hidden border border-black/80">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover select-none pointer-events-none"
-                  />
-                  {/* Dynamic Glass Glare Sweep */}
-                  <motion.div
-                    style={{ left: glareX }}
-                    className="absolute inset-y-0 w-[40%] bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-25deg] pointer-events-none z-30"
-                  />
-                  {/* Subtle Screen Ambient Shadow */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/15 pointer-events-none z-20" />
+                {/* Laptop Keyboard Base Hinge Joiner */}
+                <div className="w-[92.4%] h-[1vw] bg-gradient-to-b from-[#101010] to-[#1a1a1a] border-t border-white/5 relative z-10" />
+
+                {/* Laptop Keyboard Base Tray */}
+                <div 
+                  className="w-full h-[3vw] bg-gradient-to-b from-[#222224] via-[#1a1a1c] to-[#0c0c0e] rounded-b-[2vw] border-t border-white/20 relative flex justify-center z-10"
+                  style={{
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.8), 0 35px 70px -10px rgba(0,0,0,0.9)'
+                  }}
+                >
+                  {/* Front Lip Display Opening Indentation Notch */}
+                  <div className="w-[15%] h-[28%] bg-black/60 rounded-b-[0.4vw] border-x border-b border-white/5 relative z-20" />
+                  
+                  {/* Metallic Beveled Edge Reflection */}
+                  <div className="absolute inset-x-0 top-0 h-[1px] bg-white/20 pointer-events-none" />
                 </div>
-              </div>
-
-              {/* Laptop Keyboard Base Hinge Joiner */}
-              <div className="w-[92.4%] h-[1vw] bg-gradient-to-b from-[#101010] to-[#1a1a1a] border-t border-white/5 relative z-10" />
-
-              {/* Laptop Keyboard Base Tray */}
-              <div 
-                className="w-full h-[3vw] bg-gradient-to-b from-[#222224] via-[#1a1a1c] to-[#0c0c0e] rounded-b-[2vw] border-t border-white/20 relative flex justify-center z-10"
-                style={{
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.8), 0 35px 70px -10px rgba(0,0,0,0.9)'
-                }}
-              >
-                {/* Front Lip Display Opening Indentation Notch */}
-                <div className="w-[15%] h-[28%] bg-black/60 rounded-b-[0.4vw] border-x border-b border-white/5 relative z-20" />
-                
-                {/* Metallic Beveled Edge Reflection */}
-                <div className="absolute inset-x-0 top-0 h-[1px] bg-white/20 pointer-events-none" />
-              </div>
-            </motion.div>
-          </div>
-        </section>
+              </motion.div>
+            </div>
+          </section>
+        )}
 
         {/* ================= PROJECT OVERVIEW ================= */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12">

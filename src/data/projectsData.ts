@@ -4,6 +4,11 @@ import trackphoneImg from '../assets/trackphone_preview.png';
 import neurolearnImg from '../assets/neurolearn_preview.png';
 import crimedashboardImg from '../assets/crimedashboard_preview.png';
 
+// Import new MindVerse screenshots
+import mindverseDetail1 from '../assets/mindverse_detail_1.png';
+import mindverseDetail2 from '../assets/mindverse_detail_2.png';
+import mindverseDetail3 from '../assets/mindverse_detail_3.png';
+
 export interface Project {
   id: number;
   slug: string;
@@ -20,6 +25,8 @@ export interface Project {
   githubUrl: string;
   demoUrl: string;
   gallery: string[];
+  isMobileOnly?: boolean;
+  mobileImages?: string[];
 }
 
 export const projectsList: Project[] = [
@@ -43,11 +50,13 @@ export const projectsList: Project[] = [
     challenges: 'Rendering 10,000+ interactive nodes in a WebGL environment without dropping below 60fps was solved by implementing custom shader materials, instanced meshes, and worker-thread physics simulation.',
     githubUrl: 'https://github.com',
     demoUrl: 'https://demo.com',
+    isMobileOnly: true,
+    mobileImages: [mindverseDetail1, mindverseDetail2, mindverseDetail3],
     gallery: [
-      'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=600&auto=format&fit=crop'
+      mindverseDetail1,
+      mindverseDetail2,
+      mindverseDetail3,
+      mindverseImg
     ]
   },
   {
