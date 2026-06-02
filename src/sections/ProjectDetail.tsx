@@ -4,6 +4,17 @@ import { ArrowLeft, ExternalLink, Shield, Cpu, RefreshCw, Layers } from 'lucide-
 import { SiGithub } from 'react-icons/si';
 import type { Project } from '../data/projectsData';
 
+// Import phone screens for the MindVerse mobile showreel
+import phone1 from '../assets/mindverse_phone_1.png';
+import phone2 from '../assets/mindverse_phone_2.png';
+import phone3 from '../assets/mindverse_phone_3.png';
+import phone4 from '../assets/mindverse_phone_4.png';
+import phone5 from '../assets/mindverse_phone_5.png';
+import phone6 from '../assets/mindverse_phone_6.png';
+import phone7 from '../assets/mindverse_phone_7.png';
+import phone8 from '../assets/mindverse_phone_8.png';
+import phone9 from '../assets/mindverse_phone_9.png';
+
 interface ProjectDetailProps {
   project: Project;
   onClose: () => void;
@@ -350,49 +361,108 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
             </h3>
           </div>
 
-          {/* Bento Grid Gallery Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <div className="md:col-span-7 aspect-[4/3] rounded-2xl overflow-hidden border border-white/5 relative group cursor-pointer bg-white/5">
-              <img
-                src={project.gallery[0]}
-                alt="UI screen 1"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <span className="text-xs font-mono tracking-widest text-white uppercase">User Dashboard Flow</span>
+          {/* Bento Grid Gallery Layout / Mobile Showreel Animation */}
+          {project.slug === 'mindverse' ? (
+            <div className="w-full">
+              <style>{`
+                @keyframes scroll-up {
+                  0% { transform: translateY(0); }
+                  100% { transform: translateY(-50%); }
+                }
+                @keyframes scroll-down {
+                  0% { transform: translateY(-50%); }
+                  100% { transform: translateY(0); }
+                }
+                .scroll-column-up {
+                  animation: scroll-up 35s linear infinite;
+                }
+                .scroll-column-down {
+                  animation: scroll-down 35s linear infinite;
+                }
+                .scroll-column-up:hover, .scroll-column-down:hover {
+                  animation-play-state: paused;
+                }
+              `}</style>
+              <div className="grid grid-cols-3 gap-4 md:gap-8 h-[650px] overflow-hidden relative rounded-3xl border border-white/10 bg-white/[0.01] px-4 md:px-8 py-6 backdrop-blur-3xl shadow-[0_0_80px_rgba(168,85,247,0.02)]">
+                {/* Tech Accent Grids */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+
+                {/* Column 1 - Scrolling Up */}
+                <div className="flex flex-col gap-6 scroll-column-up">
+                  {[phone1, phone2, phone3, phone1, phone2, phone3].map((img, i) => (
+                    <div key={i} className="w-full rounded-2xl overflow-hidden bg-white/5 border border-white/10 p-2.5 shadow-xl hover:scale-[1.03] hover:border-purple-accent/40 transition-all duration-300">
+                      <img src={img} alt={`Screen ${i}`} className="w-full object-contain pointer-events-none select-none" />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Column 2 - Scrolling Down */}
+                <div className="flex flex-col gap-6 scroll-column-down">
+                  {[phone4, phone5, phone6, phone4, phone5, phone6].map((img, i) => (
+                    <div key={i} className="w-full rounded-2xl overflow-hidden bg-white/5 border border-white/10 p-2.5 shadow-xl hover:scale-[1.03] hover:border-purple-accent/40 transition-all duration-300">
+                      <img src={img} alt={`Screen ${i}`} className="w-full object-contain pointer-events-none select-none" />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Column 3 - Scrolling Up */}
+                <div className="flex flex-col gap-6 scroll-column-up">
+                  {[phone7, phone8, phone9, phone7, phone8, phone9].map((img, i) => (
+                    <div key={i} className="w-full rounded-2xl overflow-hidden bg-white/5 border border-white/10 p-2.5 shadow-xl hover:scale-[1.03] hover:border-purple-accent/40 transition-all duration-300">
+                      <img src={img} alt={`Screen ${i}`} className="w-full object-contain pointer-events-none select-none" />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Ambient Shadows at borders for seamless fade */}
+                <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#050505] to-transparent pointer-events-none z-10" />
+                <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-10" />
               </div>
             </div>
-            <div className="md:col-span-5 aspect-[4/3] rounded-2xl overflow-hidden border border-white/5 relative group cursor-pointer bg-white/5">
-              <img
-                src={project.gallery[1]}
-                alt="UI screen 2"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <span className="text-xs font-mono tracking-widest text-white uppercase">Neural Mapping Vector Graph</span>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+              <div className="md:col-span-7 aspect-[4/3] rounded-2xl overflow-hidden border border-white/5 relative group cursor-pointer bg-white/5">
+                <img
+                  src={project.gallery[0]}
+                  alt="UI screen 1"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <span className="text-xs font-mono tracking-widest text-white uppercase">User Dashboard Flow</span>
+                </div>
+              </div>
+              <div className="md:col-span-5 aspect-[4/3] rounded-2xl overflow-hidden border border-white/5 relative group cursor-pointer bg-white/5">
+                <img
+                  src={project.gallery[1]}
+                  alt="UI screen 2"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <span className="text-xs font-mono tracking-widest text-white uppercase">Neural Mapping Vector Graph</span>
+                </div>
+              </div>
+              <div className="md:col-span-5 aspect-[4/3] rounded-2xl overflow-hidden border border-white/5 relative group cursor-pointer bg-white/5">
+                <img
+                  src={project.gallery[2]}
+                  alt="UI screen 3"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <span className="text-xs font-mono tracking-widest text-white uppercase">Realtime Analytics telemetry</span>
+                </div>
+              </div>
+              <div className="md:col-span-7 aspect-[4/3] rounded-2xl overflow-hidden border border-white/5 relative group cursor-pointer bg-white/5">
+                <img
+                  src={project.gallery[3]}
+                  alt="UI screen 4"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <span className="text-xs font-mono tracking-widest text-white uppercase">Responsive Interface Bezel layout</span>
+                </div>
               </div>
             </div>
-            <div className="md:col-span-5 aspect-[4/3] rounded-2xl overflow-hidden border border-white/5 relative group cursor-pointer bg-white/5">
-              <img
-                src={project.gallery[2]}
-                alt="UI screen 3"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <span className="text-xs font-mono tracking-widest text-white uppercase">Realtime Analytics telemetry</span>
-              </div>
-            </div>
-            <div className="md:col-span-7 aspect-[4/3] rounded-2xl overflow-hidden border border-white/5 relative group cursor-pointer bg-white/5">
-              <img
-                src={project.gallery[3]}
-                alt="UI screen 4"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <span className="text-xs font-mono tracking-widest text-white uppercase">Responsive Interface Bezel layout</span>
-              </div>
-            </div>
-          </div>
+          )}
         </section>
 
         {/* ================= TECH STACK pills section ================= */}
