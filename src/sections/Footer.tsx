@@ -112,7 +112,7 @@ export const Footer: React.FC = () => {
             <ul className="flex flex-col gap-3 text-xs sm:text-sm">
               <li>
                 <FooterLink onClick={() => scrollTo('projects')}>
-                  JobMatchAI
+                  Crypto Price Prediction
                 </FooterLink>
               </li>
               <li>
@@ -132,7 +132,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <FooterLink onClick={() => scrollTo('projects')}>
-                  TrackPhone
+                  AI PDF Chatbot
                 </FooterLink>
               </li>
             </ul>

@@ -4,16 +4,19 @@ import { ArrowLeft, ExternalLink, Shield, Cpu, RefreshCw, Layers } from 'lucide-
 import { SiGithub } from 'react-icons/si';
 import type { Project } from '../data/projectsData';
 
+// Import clean laptop mockup
+import laptopMockupImg from '../assets/cpp/laptop_mockup_clean.png';
+
 // Import phone screens for the MindVerse mobile showreel
-import phone1 from '../assets/mindverse_phone_1.png';
-import phone2 from '../assets/mindverse_phone_2.png';
-import phone3 from '../assets/mindverse_phone_3.png';
-import phone4 from '../assets/mindverse_phone_4.png';
-import phone5 from '../assets/mindverse_phone_5.png';
-import phone6 from '../assets/mindverse_phone_6.png';
-import phone7 from '../assets/mindverse_phone_7.png';
-import phone8 from '../assets/mindverse_phone_8.png';
-import phone9 from '../assets/mindverse_phone_9.png';
+import phone1 from '../assets/mindverse/mindverse_phone_1.png';
+import phone2 from '../assets/mindverse/mindverse_phone_2.png';
+import phone3 from '../assets/mindverse/mindverse_phone_3.png';
+import phone4 from '../assets/mindverse/mindverse_phone_4.png';
+import phone5 from '../assets/mindverse/mindverse_phone_5.png';
+import phone6 from '../assets/mindverse/mindverse_phone_6.png';
+import phone7 from '../assets/mindverse/mindverse_phone_7.png';
+import phone8 from '../assets/mindverse/mindverse_phone_8.png';
+import phone9 from '../assets/mindverse/mindverse_phone_9.png';
 
 interface ProjectDetailProps {
   project: Project;
@@ -184,6 +187,43 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose }
                   />
                 ))}
               </div>
+            </div>
+          </section>
+        ) : project.videoUrl ? (
+          <section className="w-full flex justify-center items-center py-8">
+            <div className="w-full max-w-5xl relative aspect-[1366/768] select-none">
+              {/* Custom Laptop Mockup Image */}
+              <img
+                src={laptopMockupImg}
+                alt={project.title}
+                className="w-full h-full object-contain pointer-events-none select-none relative z-20"
+              />
+              {/* Video Overlay inside the screen boundaries */}
+              <div 
+                className="absolute left-[16.69%] top-[6.38%] w-[69.11%] h-[78.26%] bg-black overflow-hidden z-10"
+                style={{
+                  borderRadius: '0.4vw'
+                }}
+              >
+                <video
+                  src={project.videoUrl}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-fill"
+                />
+              </div>
+            </div>
+          </section>
+        ) : project.isLaptopMockupImage ? (
+          <section className="w-full flex justify-center items-center py-8">
+            <div className="w-full max-w-5xl relative select-none">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-contain pointer-events-none select-none"
+              />
             </div>
           </section>
         ) : (

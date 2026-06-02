@@ -1,13 +1,25 @@
 import mindverseImg from '../assets/mindverse_preview.png';
-import jobmatchaiImg from '../assets/jobmatchai_preview.png';
-import trackphoneImg from '../assets/trackphone_preview.png';
 import neurolearnImg from '../assets/neurolearn_preview.png';
 import crimedashboardImg from '../assets/crimedashboard_preview.png';
 
 // Import new MindVerse screenshots
-import mindverseDetail1 from '../assets/mindverse_detail_1.png';
-import mindverseDetail2 from '../assets/mindverse_detail_2.png';
-import mindverseDetail3 from '../assets/mindverse_detail_3.png';
+import mindverseDetail1 from '../assets/mindverse/mindverse_detail_1.png';
+import mindverseDetail2 from '../assets/mindverse/mindverse_detail_2.png';
+import mindverseDetail3 from '../assets/mindverse/mindverse_detail_3.png';
+
+// Import CPP project screenshots and video
+import cppVideo from '../assets/cpp/CPP.mp4';
+import cppImg1 from '../assets/cpp/CPP1.jpeg';
+import cppImg2 from '../assets/cpp/CPP2.jpeg';
+import cppImg3 from '../assets/cpp/CPP3.png';
+import cppImg4 from '../assets/cpp/CPP4.png';
+
+// Import PDF Chatbot screenshots
+import chatbotSS1 from '../assets/pdf_chatbot/PDF Chatbot SS1.png';
+import chatbotSS2 from '../assets/pdf_chatbot/PDF Chatbot SS2.png';
+import chatbotSS3 from '../assets/pdf_chatbot/PDF Chatbot SS3.png';
+import chatbotSS4 from '../assets/pdf_chatbot/PDF Chatbot SS4.png';
+import chatbotSS5 from '../assets/pdf_chatbot/PDF Chatbot SS5.png';
 
 export interface Project {
   id: number;
@@ -27,6 +39,8 @@ export interface Project {
   gallery: string[];
   isMobileOnly?: boolean;
   mobileImages?: string[];
+  videoUrl?: string; // Video URL for project detail showcase
+  isLaptopMockupImage?: boolean; // Flag to render screenshot inside laptop mockup screen
 }
 
 export const projectsList: Project[] = [
@@ -61,56 +75,61 @@ export const projectsList: Project[] = [
   },
   {
     id: 2,
-    slug: 'jobmatchai',
-    title: 'JobMatchAI',
-    category: 'AI Recruitment',
-    image: jobmatchaiImg,
-    subtitle: 'Resume Parser & Talent Matching Agent',
-    problem: 'Human screening of thousands of CVs results in massive bias, fatigue, and poor alignment with rapidly changing tech stacks.',
-    solution: 'An autonomous agentic recruitment system that parses, screens, and ranks candidates based on deep skill-set semantic understanding rather than keyword matching.',
+    slug: 'crypto-price-prediction',
+    title: 'Crypto Price Prediction',
+    category: 'Machine Learning',
+    image: cppImg3,
+    subtitle: 'XGBoost Time-Series Regressor & Flask API',
+    problem: 'The cryptocurrency market presents unique challenges with its volatility and complexity. This solution aims to reduce uncertainty through data-driven predictions, provide accessible visualizations of potential market movements, help both novice and experienced traders make more informed decisions, and democratize access to sophisticated prediction tools typically available only to institutional investors.',
+    solution: "We've developed a comprehensive solution that predicts cryptocurrency price movements using XGBoost regression models, helping investors make more informed decisions in this volatile market.",
     features: [
-      'High-accuracy PDF parsing engine',
-      'Semantic candidate ranking matrices',
-      'Automated interview feedback loops',
-      'Bias-reduction profiling configuration'
+      'Real-time cryptocurrency price predictions',
+      'Interactive data visualization',
+      'Support for multiple cryptocurrencies (BTC, ETH, XRP, etc.)',
+      'Responsive design for all devices',
+      'Advanced XGBoost regression model',
+      'Historical price analysis and trends'
     ],
-    techStack: ['Python', 'OpenCV / OCR', 'NLP / Transformers', 'Flask', 'React', 'Tailwind'],
-    architecture: 'Vite React frontend backed by a Flask API. Heavy PDF parsing is decoupled via Celery queues, while transformer embeddings calculate candidate relevance matrices.',
-    challenges: 'Deciphering multi-column resumes and complex CV layouts. Resolved by leveraging OCR pre-processing alongside layout-aware NLP layout parsers.',
+    techStack: ['Python', 'Flask', 'XGBoost', 'React', 'Vite', 'Chart.js', 'Pandas', 'NumPy'],
+    architecture: 'Backend: Flask API serving trained machine learning models. Frontend: Reactive Vite/React application providing intuitive visualizations. ML Models: Custom-trained XGBoost regressors for multiple cryptocurrencies, including BNB and Shiba Inu. Data Analysis: Historical 5-year price data analysis and feature engineering.',
+    challenges: 'This project has deepened my expertise in: Time-series forecasting with XGBoost, backend services in Flask, responsive design in React, and financial market data analysis.',
     githubUrl: 'https://github.com',
     demoUrl: 'https://demo.com',
+    videoUrl: cppVideo,
     gallery: [
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1542744094-3a31f103e35f?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=600&auto=format&fit=crop'
+      cppImg1,
+      cppImg2,
+      cppImg3,
+      cppImg4
     ]
   },
   {
     id: 3,
-    slug: 'trackphone',
-    title: 'Track My Phone',
-    category: 'Mobile Security',
-    image: trackphoneImg,
-    subtitle: 'Anti-Theft & Spatial Security App',
-    problem: 'Stolen phones frequently get powered off immediately, rendering stock trackers useless. This provides silent background beacons and triggers.',
-    solution: 'A native mobile security layer that continues tracking device status silently. Employs battery-saving background beacons, SMS triggers, and simulated "Fake Shutdown" screens to trap unauthorized users.',
+    slug: 'ai-pdf-chatbot',
+    title: 'AI PDF Chatbot (RAG-based)',
+    category: 'AI & NLP',
+    image: chatbotSS1,
+    subtitle: 'LangChain & LangGraph Stateful Document QA Agent',
+    problem: 'Traditional note-taking and documentation is static and hard to search. Users waste hours manually scanning through long PDFs to extract relevant context, facts, and citations.',
+    solution: 'An autonomous agentic chatbot that ingests PDFs, stores vector embeddings in Supabase/ChromaDB, and answers user queries using OpenAI (or another LLM provider) utilizing LangChain and LangGraph as orchestration frameworks.',
     features: [
-      'Low-latency socket telemetry updates',
-      'SMS trigger commands parser',
-      'Remote encrypted data wipe system',
-      'Intelligent ambient voice recording triggers'
+      'Document Ingestion Graph: Upload and parse PDFs into vector embeddings',
+      'Retrieval Graph: Stateful graph orchestrator for retrieval and QA',
+      'Streaming Responses: Real-time streaming of partial responses to UI',
+      'LangGraph State-Machine: Stateful multi-agent graph visualization',
+      'Next.js Frontend: File upload, real-time chat, and extensible React UI'
     ],
-    techStack: ['Flutter', 'Firebase', 'Flask', 'Google Maps API', 'Dart'],
-    architecture: 'Cross-platform Flutter application integrated with a Python Flask service for SMS routing, using Firestore for real-time telemetry syncing.',
-    challenges: 'Executing background processes reliably across strict iOS and Android OS restrictions. Solved by implementing platform-specific native background services and push notifications.',
+    techStack: ['Turborepo', 'Yarn Workspaces', 'Next.js 14', 'TypeScript', 'LangChain', 'LangGraph', 'OpenAI', 'Supabase', 'ChromaDB', 'Tailwind CSS'],
+    architecture: 'Monorepo built with Turborepo and Yarn workspaces. Next.js 14 App Router frontend utilizing Tailwind CSS and Radix UI components. Node.js backend using TypeScript, LangChain, and LangGraph for stateful agent workflows, backed by Supabase and ChromaDB vector search indexes.',
+    challenges: 'Managing retrieval workflows and agent checkpoints in complex conversation flows. Solved by employing LangGraph to structure the ingestion and retrieval processes as state machines, facilitating easy debugging, tracking, and telemetry.',
     githubUrl: 'https://github.com',
     demoUrl: 'https://demo.com',
+    isLaptopMockupImage: true,
     gallery: [
-      'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1546054454-aa26e2b734c7?q=80&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1573148195900-7845dcb9b127?q=80&w=600&auto=format&fit=crop'
+      chatbotSS2,
+      chatbotSS3,
+      chatbotSS4,
+      chatbotSS5
     ]
   },
   {
